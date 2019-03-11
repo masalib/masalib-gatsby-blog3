@@ -3,6 +3,7 @@ module.exports = {
     title: 'Masalib Gatsby Blog',
     description:
       'Gatsby Study test',
+    siteUrl: `https://masalib-gatsby-blog.netlify.com/`,
   },
   plugins: [
     'gatsby-plugin-react-helmet',
@@ -78,6 +79,29 @@ module.exports = {
       options: {
         // replace "UA-XXXXXXXXX-X" with your own Tracking ID
         trackingId: "UA-16973603-12",
+      },
+    },
+    `gatsby-plugin-sitemap`,
+    {
+      resolve: `gatsby-plugin-sitemap`,
+      options: {
+        output: `/sitemap.xml`,
+        exclude: ["/tag/*"],
+        query: `
+          {
+            site {
+              siteMetadata {
+                siteUrl
+              }
+            }
+            allSitePage {
+              edges {
+                node {
+                  path
+                }
+              }
+            }
+        }`
       },
     },
   ],
